@@ -9,6 +9,26 @@ namespace CSharpToSqlLibary {
 	class Program {
 		static void Main(string[] args) {
 
+			VendorsController VendorCtrl = new VendorsController(@"dsi-workstation\SQLEXPRESS", "prssql");
+
+			IEnumerable<Vendor> vendors = VendorCtrl.List();
+			Vendor v1 = VendorCtrl.Get(1);
+			int AmazonId = v1.Id;
+
+			v1.Name = "Amazon, Inc.";
+			VendorCtrl.Change(v1);
+
+			v1.Id = 0;
+			v1.Name = "Walmart";
+			v1.Code = "WALM";
+			VendorCtrl.Create(v1);
+
+			v1.Id = 3;
+			VendorCtrl.Remove(v1);
+
+			VendorCtrl.CloseConnection();
+
+/*
 			UsersController UserCtrl = new UsersController(@"dsi-workstation\SQLEXPRESS", "prssql");
 
 			IEnumerable<User> users = UserCtrl.List();
@@ -51,6 +71,8 @@ namespace CSharpToSqlLibary {
 				UserCtrl.Remove(user);
 
 			UserCtrl.CloseConnection();
+
+*/
 
 		}
 	}
